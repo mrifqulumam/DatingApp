@@ -9,6 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   baseUrl = 'http://localhost:5000/api/auth/';
   jwtHelper = new JwtHelperService();
+  decoded: any;
   constructor(private http: HttpClient) { }
 
   // tslint:disable-next-line:one-line
@@ -20,6 +21,8 @@ export class AuthService {
           if (user) {
             localStorage.setItem('token', user.token);
           }
+          this.decoded = this.jwtHelper.decodeToken(user.token);
+          console.log(this.decoded);
         })
       );
   }
